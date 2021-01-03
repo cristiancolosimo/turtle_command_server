@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text">
+    <button id="sen">Send</button>
+    <button id="av">Avanti</button>
+    <button id="ind">Indientro</button>
+    <button id="sopra">Sopra</button>
+    <button id="sotto">Sotto</button>
+    <ul>
+
+    </ul>
+    <script>
+        const input = document.querySelector("input");
+        const buttonSend = document.querySelector("button");
+        const buttonAvanti = document.querySelector("button");
+        const buttonInd = document.querySelector("button");
+        const buttonSend = document.querySelector("button");
+        const buttonSend = document.querySelector("button");
+
+        const ul = document.querySelector("ul");
+        const socket = new WebSocket("ws://localhost:5757");
+        socket.onopen = function (event) {
+            socket.send(JSON.stringify({
+                type: "connect",
+                usertype: "user"
+            }));
+
+            //const js = JSON.stringify({type:"eval",func:'turtle.forward()'})
+            //esempioSocket.send(JSON.stringify({type:"eval",func:'turtle.forward()'}));
+        };
+
+        buttonSend.onclick = ()=>{
+        socket.send(input.value)
+        }
+        socket.onmessage = (messagge) => {
+            console.log(messagge)
+            const li = document.createElement("li");
+            li.textContent = messagge;
+            ul.appendChild(li);
+
+        };
+    </script>
+</body>
+
+</html>
